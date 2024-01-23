@@ -7,8 +7,14 @@
 
         <li class="nav-item nav-notif">
             <a class="nav-link text-muted my-2" href="./#" data-toggle="modal" data-target=".modal-notif">
-                <span class="fe fe-bell fe-16"></span>
-                <span class="dot dot-md bg-success"></span>
+                <span class="fe fe-bell fe-16 @if (auth('admin')->user()->unreadnotifications->count() != 0) text-danger @endif "></span>
+
+                <span class="dot dot-md text-danger">
+                    @if (auth('admin')->user()->unreadnotifications->count() == 0)
+                    @else
+                        {{ auth('admin')->user()->unreadnotifications->count() }}
+                    @endif
+                </span>
             </a>
         </li>
 

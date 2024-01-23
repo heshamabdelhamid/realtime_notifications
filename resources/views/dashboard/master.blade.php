@@ -27,58 +27,39 @@
                         </div>
                         <div class="modal-body">
                             <div class="list-group list-group-flush my-n3">
-                                <div class="list-group-item bg-transparent">
-                                    <div class="row align-items-center">
-                                        <div class="col-auto">
-                                            <span class="fe fe-box fe-24"></span>
-                                        </div>
-                                        <div class="col">
-                                            <small><strong>Package has uploaded successfull</strong></small>
-                                            <div class="my-0 text-muted small">Package is zipped and uploaded</div>
-                                            <small class="badge badge-pill badge-light text-muted">1m ago</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="list-group-item bg-transparent">
-                                    <div class="row align-items-center">
-                                        <div class="col-auto">
-                                            <span class="fe fe-download fe-24"></span>
-                                        </div>
-                                        <div class="col">
-                                            <small><strong>Widgets are updated successfull</strong></small>
-                                            <div class="my-0 text-muted small">Just create new layout Index, form, table
+
+                                @if (count(auth('admin')->user()->notifications) > 0)
+                                    @foreach (auth('admin')->user()->notifications as $notification)
+                                        <div class="list-group-item">
+                                            <div
+                                                class="row align-items-center @if ($notification->unread()) bg-secondary @else bg-transparent @endif   ">
+
+                                                <div class="col-auto">
+                                                    <span class="fe fe-box fe-24"></span>
+                                                </div>
+
+                                                <div class="col">
+                                                    <small><strong>{{ $notification->data['messages'] }}</strong></small>
+
+                                                    <div class="my-0 text-muted small">
+                                                        {{ $notification->data['name'] }}
+                                                    </div>
+
+                                                    <small class="badge badge-pill badge-light text-muted">
+                                                        {{ $notification->created_at->diffForHumans() }}
+                                                    </small>
+
+                                                </div>
+
                                             </div>
-                                            <small class="badge badge-pill badge-light text-muted">2m ago</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="list-group-item bg-transparent">
-                                    <div class="row align-items-center">
-                                        <div class="col-auto">
-                                            <span class="fe fe-inbox fe-24"></span>
-                                        </div>
-                                        <div class="col">
-                                            <small><strong>Notifications have been sent</strong></small>
-                                            <div class="my-0 text-muted small">Fusce dapibus, tellus ac cursus commodo
-                                            </div>
-                                            <small class="badge badge-pill badge-light text-muted">30m ago</small>
-                                        </div>
-                                    </div> <!-- / .row -->
-                                </div>
-                                <div class="list-group-item bg-transparent">
-                                    <div class="row align-items-center">
-                                        <div class="col-auto">
-                                            <span class="fe fe-link fe-24"></span>
-                                        </div>
-                                        <div class="col">
-                                            <small><strong>Link was attached to menu</strong></small>
-                                            <div class="my-0 text-muted small">New layout has been attached to the menu
-                                            </div>
-                                            <small class="badge badge-pill badge-light text-muted">1h ago</small>
-                                        </div>
-                                    </div>
-                                </div> <!-- / .row -->
-                            </div> <!-- / .list-group -->
+                                        </div> <!-- / .list-group -->
+                                    @endforeach
+                                @else
+                                    @lang('admin.not_found_data')
+                                @endif
+                                <!-- / .row -->
+
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Clear
