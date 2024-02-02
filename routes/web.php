@@ -48,7 +48,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         ##------------------------------------------------------- ADMIN INDEX PAGE
         Route::get('/', AdminHomeController::class)->name('index');
-        
+        Route::get('/notifications/MarkAsRead', [AdminHomeController::class, 'notificationsMarkAsRead'])
+            ->name('notifications.MarkAsRead');
     });
 
     require __DIR__ . '/adminAuth.php';

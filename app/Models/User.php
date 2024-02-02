@@ -67,7 +67,7 @@ class User extends Authenticatable
     ##--------------------------------- SCOPES
 
 
-    ##--------------------------------- ACCESSORS & MUTATORS    
+    ##--------------------------------- ACCESSORS & MUTATORS
     /**
      * Interact with the user's password
      *
