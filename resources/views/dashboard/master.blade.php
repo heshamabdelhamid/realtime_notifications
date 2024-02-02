@@ -25,7 +25,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" id="notification-modal">
                             <div class="list-group list-group-flush my-n3">
 
                                 @if (count(auth('admin')->user()->notifications) > 0)

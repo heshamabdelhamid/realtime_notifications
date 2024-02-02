@@ -17,4 +17,8 @@ class AdminHomeController extends Controller
         return view('dashboard.home', get_defined_vars());
     }
 
+    public function notificationsMarkAsRead()
+    {
+        auth('admin')->user()->unreadnotifications->markAsRead();
+    }
 }
