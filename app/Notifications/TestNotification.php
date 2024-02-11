@@ -45,7 +45,7 @@ class TestNotification extends Notification {
             'email'    => $this->user->email,
             'messages' => 'new register',
         ];
-    }
+    }   
 
     // public function toDatabase(object $notifiable): array {
     //     return [
