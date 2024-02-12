@@ -6,11 +6,12 @@
     <ul class="nav">
 
         <li class="nav-item nav-notif">
-            <a class="nav-link text-muted my-2 notifications" href="./#" data-toggle="modal" data-target=".modal-notif">
+            <a class="nav-link text-muted my-2 notificationsIcon" href="./#" data-toggle="modal"
+                data-target=".modal-notif">
                 <span class="fe fe-bell fe-16 @if (auth('admin')->user()->unreadnotifications->count() != 0) text-danger @endif "
                     id="notification-color"></span>
 
-                <span class="dot dot-md text-danger" id="notification-counter">
+                <span class="dot dot-md text-danger" id="notificationsIconCounter">
 
                     @if (auth('admin')->user()->unreadnotifications->count() != 0)
                         {{ auth('admin')->user()->unreadnotifications->count() }}
@@ -30,10 +31,10 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <div class="list-group list-group-flush my-n3" id="notification-modal">
+                    <div class="modal-body" id="notificationsModal">
+                        @if (count(auth('admin')->user()->notifications) > 0)
+                            <div class="list-group list-group-flush my-n3">
 
-                            @if (count(auth('admin')->user()->notifications) > 0)
                                 @foreach (auth('admin')->user()->notifications as $notification)
                                     <div class="list-group-item">
                                         <div
@@ -59,13 +60,13 @@
                                         </div>
                                     </div> <!-- / .list-group -->
                                 @endforeach
-                            @else
-                                @lang('admin.not_found_data')
-                            @endif
-                            <!-- / .row -->
-
-                        </div>
+                            </div>
+                        @else
+                            @lang('admin.not_found_data')
+                        @endif
+                        <!-- / .row -->
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Clear
                             All</button>

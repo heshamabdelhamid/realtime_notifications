@@ -30,19 +30,19 @@
 <script src='{{ asset('assets') }}/js/quill.min.js'></script>
 
 <script>
-    $(document).ready(function() {
-        $('.notifications').on('click', function() {
-            $.ajax({
-                method: "get",
-                url: {{ Js::from(route('admin.notifications.MarkAsRead')) }},
+    // $(document).ready(function() {
+    //     $('.notifications').on('click', function() {
+    //         $.ajax({
+    //             method: "get",
+    //             url: {{ Js::from(route('admin.notifications.MarkAsRead')) }},
 
-                success: function(response) {
-                    // $("#notification-modal").load("#notification-modal > *");
-                    // $("#notification-color").load("#notification-color > *");
-                    // $("#notification-counter").load("#notification-counter > *");
-                }
+    //             success: function(response) {
+    //                 // $("#notification-modal").load("#notification-modal > *");
+    //                 // $("#notification-color").load("#notification-color > *");
+    //                 // $("#notification-counter").load("#notification-counter > *");
+    //             }
 
-            });
-        });
-    });
+    //         });
+    //     });
+    // });
 </script>
