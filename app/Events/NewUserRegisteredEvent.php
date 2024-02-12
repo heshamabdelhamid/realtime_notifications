@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -14,12 +15,14 @@ class NewUserRegisteredEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $message;
+
     /**
      * Create a new event instance.
      */
-    public function __construct()
+    public function __construct(public User $user)
     {
-        //
+        $this->message = "New User Registered called {$user->name}";
     }
 
     /**
@@ -30,7 +33,7 @@ class NewUserRegisteredEvent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new Channel('new-user-register'),
+            new Channel('new-user-channel'),
         ];
     }
 }
