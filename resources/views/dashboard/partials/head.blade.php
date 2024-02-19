@@ -24,10 +24,12 @@
     <!-- App CSS -->
     <link rel="stylesheet" href="{{ asset('assets') }}/css/app-light.css" id="lightTheme">
     <link rel="stylesheet" href="{{ asset('assets') }}/css/app-dark.css" id="darkTheme" disabled>
+
     @stack('styles')
 
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
-    <script>
+
+    {{-- <script>
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = false;
 
@@ -41,6 +43,9 @@
             $(".notificationsIcon").load(" .notificationsIcon > *");
             $("#notificationsModal").load(" #notificationsModal > *");
         });
-    </script>
+
+    </script> --}}
+
+    @vite('resources/js/app.js')
 
 </head>
