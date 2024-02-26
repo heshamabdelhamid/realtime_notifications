@@ -36,7 +36,18 @@ window.Echo = new Echo({
     enabledTransports: ["ws", "wss"],
 });
 
-window.Echo.channel(`new-user-channel`).listen(
+// PUBLIC CHANNEL
+// window.Echo.channel(`new-user-channel`).listen(
+//     "NewUserRegisteredEvent",
+//     (data) => {
+//         console.log(data);
+//         $(".notificationsIcon").load(" .notificationsIcon > *");
+//         $("#notificationsModal").load(" #notificationsModal > *");
+//     }
+// );
+
+// PRIVATE CHANNEL
+window.Echo.private(`new-user-channel`).listen(
     "NewUserRegisteredEvent",
     (data) => {
         console.log(data);
@@ -44,3 +55,7 @@ window.Echo.channel(`new-user-channel`).listen(
         $("#notificationsModal").load(" #notificationsModal > *");
     }
 );
+// this if we have another event in the same channel
+// .listen("NewUserRegisteredEvent", (data) => {
+// write your code for this event
+// });
