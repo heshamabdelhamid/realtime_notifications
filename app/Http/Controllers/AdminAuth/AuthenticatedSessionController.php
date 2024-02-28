@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\AdminAuth;
 
+use App\Broadcasting\AdminJoinRoom;
+use App\Events\NewAdminRoom;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +30,8 @@ class AuthenticatedSessionController extends Controller
     public function store(AdminLoginRequest $request)
     {
         $request->authenticate('admin');
+
+        broadcast(new NewAdminRoom());
 
         $request->session()->regenerate();
 

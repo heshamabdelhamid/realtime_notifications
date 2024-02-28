@@ -21,8 +21,6 @@ import Pusher from "pusher-js";
 
 window.Pusher = Pusher;
 
-console.log("Hi Echo");
-
 window.Echo = new Echo({
     broadcaster: "pusher",
     key: import.meta.env.VITE_PUSHER_APP_KEY,
@@ -59,3 +57,27 @@ window.Echo.private(`new-user-channel`).listen(
 // .listen("NewUserRegisteredEvent", (data) => {
 // write your code for this event
 // });
+
+// PRESENCE CHANNEL
+window.Echo.join(`admin_room_channel`)
+    .here((users) => {
+        console.log("here :");
+        console.log(users);
+        $.each(users, function (index, user) {
+            $("#onlineAdmins").append($("<li>").text(user.name));
+        });
+    })
+    .joining((user) => {
+        console.log("joining :");
+        console.log(user);
+        $("#onlineAdmins").append($("<li>").text(user.name));
+    })
+    .leaving((user) => {
+        console.log("leaving :");
+        console.log(user);
+        $("#onlineAdmins li:contains('" + user.name + "')").remove();
+    })
+    .error((error) => {
+        console.log("error :");
+        console.error(error);
+    });
