@@ -1,5 +1,6 @@
 <?php
 
+use App\Broadcasting\AdminJoinRoom;
 use App\Broadcasting\NewUserCannel;
 use Illuminate\Support\Facades\Broadcast;
 
@@ -19,4 +20,10 @@ use Illuminate\Support\Facades\Broadcast;
 // });
 
 
+// PRIVATE CHANNEL AUTHORIZATION
 Broadcast::channel('new-user-channel', NewUserCannel::class, ['guards' => ['admin']]);
+
+
+// PRESENCE CHANNEL AUTHORIZATION
+Broadcast::channel('admin_room_channel', AdminJoinRoom::class, ['guards' => ['admin']]);
+
