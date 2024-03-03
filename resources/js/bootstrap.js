@@ -19,33 +19,34 @@ import Echo from "laravel-echo";
 
 import Pusher from "pusher-js";
 
-window.Pusher = Pusher;
+// window.Pusher = Pusher;
 
+// window.Echo = new Echo({
+//     broadcaster: "pusher",
+//     key: import.meta.env.VITE_PUSHER_APP_KEY,
+//     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER ?? "mt1",
+//     wsHost: import.meta.env.VITE_PUSHER_HOST
+//         ? import.meta.env.VITE_PUSHER_HOST
+//         : `ws-${import.meta.env.VITE_PUSHER_APP_CLUSTER}.pusher.com`,
+//     wsPort: import.meta.env.VITE_PUSHER_PORT ?? 80,
+//     wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
+//     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? "https") === "https",
+//     enabledTransports: ["ws", "wss"],
+// });
+
+//WebSocket
 window.Echo = new Echo({
     broadcaster: "pusher",
-    key: import.meta.env.VITE_PUSHER_APP_KEY,
-    cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER ?? "mt1",
-    wsHost: import.meta.env.VITE_PUSHER_HOST
-        ? import.meta.env.VITE_PUSHER_HOST
-        : `ws-${import.meta.env.VITE_PUSHER_APP_CLUSTER}.pusher.com`,
-    wsPort: import.meta.env.VITE_PUSHER_PORT ?? 80,
-    wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
-    forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? "https") === "https",
-    enabledTransports: ["ws", "wss"],
+    key: "WebSocketKEY",
+    wsHost: window.location.hostname,
+    wsPort: 6001,
+    forceTLS: false,
+    disableStats: true,
+    cluster: "mt1",
 });
 
 // PUBLIC CHANNEL
-// window.Echo.channel(`new-user-channel`).listen(
-//     "NewUserRegisteredEvent",
-//     (data) => {
-//         console.log(data);
-//         $(".notificationsIcon").load(" .notificationsIcon > *");
-//         $("#notificationsModal").load(" #notificationsModal > *");
-//     }
-// );
-
-// PRIVATE CHANNEL
-window.Echo.private(`new-user-channel`).listen(
+window.Echo.channel(`new-user-channel`).listen(
     "NewUserRegisteredEvent",
     (data) => {
         console.log(data);
@@ -53,31 +54,41 @@ window.Echo.private(`new-user-channel`).listen(
         $("#notificationsModal").load(" #notificationsModal > *");
     }
 );
+
+// PRIVATE CHANNEL
+// window.Echo.private(`new-user-channel`).listen(
+//     "NewUserRegisteredEvent",
+//     (data) => {
+//         console.log(data);
+//         $(".notificationsIcon").load(" .notificationsIcon > *");
+//         $("#notificationsModal").load(" #notificationsModal > *");
+//     }
+// );
 // this if we have another event in the same channel
 // .listen("NewUserRegisteredEvent", (data) => {
 // write your code for this event
 // });
 
 // PRESENCE CHANNEL
-window.Echo.join(`admin_room_channel`)
-    .here((users) => {
-        console.log("here :");
-        console.log(users);
-        $.each(users, function (index, user) {
-            $("#onlineAdmins").append($("<li>").text(user.name));
-        });
-    })
-    .joining((user) => {
-        console.log("joining :");
-        console.log(user);
-        $("#onlineAdmins").append($("<li>").text(user.name));
-    })
-    .leaving((user) => {
-        console.log("leaving :");
-        console.log(user);
-        $("#onlineAdmins li:contains('" + user.name + "')").remove();
-    })
-    .error((error) => {
-        console.log("error :");
-        console.error(error);
-    });
+// window.Echo.join(`admin_room_channel`)
+//     .here((users) => {
+//         console.log("here :");
+//         console.log(users);
+//         $.each(users, function (index, user) {
+//             $("#onlineAdmins").append($("<li>").text(user.name));
+//         });
+//     })
+//     .joining((user) => {
+//         console.log("joining :");
+//         console.log(user);
+//         $("#onlineAdmins").append($("<li>").text(user.name));
+//     })
+//     .leaving((user) => {
+//         console.log("leaving :");
+//         console.log(user);
+//         $("#onlineAdmins li:contains('" + user.name + "')").remove();
+//     })
+//     .error((error) => {
+//         console.log("error :");
+//         console.error(error);
+//     });
