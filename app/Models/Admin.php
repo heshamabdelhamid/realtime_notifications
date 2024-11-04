@@ -102,7 +102,7 @@ class Admin extends Authenticatable
                 if ($value != null) {
                     return bcrypt($value);
                 }
-            },
+            }
         );
     }
 }

@@ -7,13 +7,13 @@
     <div class="col">
         <h2 class="h5 page-title1">Who is online now!</h2>
     </div>
-    <ul id="onlineAdmins">
-
+    <ul class="onlineAdmins">
     </ul>
 
     <div class="col-12">
         <div class="row mb-2">
         </div>
+
         <div class="mb-2 align-items-center">
             <div class="card shadow mb-4">
                 <div class="card-body">
@@ -57,6 +57,7 @@
                 </div> <!-- .card-body -->
             </div> <!-- .card -->
         </div>
+
         <div class="row items-align-baseline">
             <div class="col-md-12 col-lg-4">
                 <div class="card shadow eq-card mb-4">
@@ -139,6 +140,7 @@
                 </div> <!-- .card -->
             </div> <!-- .col-md -->
         </div>
+
         <div class="row">
             <!-- Recent Activity -->
             <div class="col-md-12 col-lg-4 mb-4">

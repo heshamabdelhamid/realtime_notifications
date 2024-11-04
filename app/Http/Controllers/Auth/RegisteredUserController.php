@@ -6,7 +6,7 @@ use App\Events\NewUserRegisteredEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\User;
-use App\Notifications\TestNotification;
+use App\Notifications\NewUserRegisteredNotification;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -47,16 +47,18 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        // Notification::send(Admin::all(), new TestNotification($user));
+        // Notification::send(Admin::all(), new NewUserRegisteredNotification($user));
 
         $admin = Admin::find(1);
-
-        $admin->notify(new TestNotification($user));
+        $admin->notify(new NewUserRegisteredNotification($user));
 
         // Broadcast Event
-        // NewUserRegisteredEvent::dispatch();
+        // NewUserRegisteredEvent::dispatch($user);
 
         Broadcast(new NewUserRegisteredEvent($user));
+
+        //Model broadcast
+        $user->broadcastChannel();
 
         Auth::login($user);
 

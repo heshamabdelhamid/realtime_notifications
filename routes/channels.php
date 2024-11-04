@@ -26,4 +26,3 @@ Broadcast::channel('new-user-channel', NewUserCannel::class, ['guards' => ['admi
 
 // PRESENCE CHANNEL AUTHORIZATION
 Broadcast::channel('admin_room_channel', AdminJoinRoom::class, ['guards' => ['admin']]);
-

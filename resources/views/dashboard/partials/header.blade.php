@@ -32,20 +32,24 @@
                         </button>
                     </div>
                     <div class="modal-body" id="notificationsModal">
+
                         @if (count(auth('admin')->user()->notifications) > 0)
                             <div class="list-group list-group-flush my-n3">
 
                                 @foreach (auth('admin')->user()->notifications as $notification)
-                                    <div class="list-group-item">
-                                        <div
-                                            class="row align-items-center @if ($notification->unread()) bg-secondary @else bg-transparent @endif   ">
+                                    <div
+                                        class="list-group-item @if ($notification->unread()) bg-light @else bg-transparent @endif">
+                                        <div class="row align-items-center">
 
                                             <div class="col-auto">
                                                 <span class="fe fe-box fe-24"></span>
                                             </div>
 
                                             <div class="col">
-                                                <small><strong>{{ $notification->data['messages'] }}</strong></small>
+                                                <small>
+                                                    <strong
+                                                        class="@if ($notification->unread()) text-danger @endif ">{{ $notification->data['message'] }}</strong>
+                                                </small>
 
                                                 <div class="my-0 text-muted small">
                                                     {{ $notification->data['name'] }}
@@ -64,7 +68,6 @@
                         @else
                             @lang('admin.not_found_data')
                         @endif
-                        <!-- / .row -->
                     </div>
 
                     <div class="modal-footer">
