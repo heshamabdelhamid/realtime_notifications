@@ -1,3 +1,4 @@
+
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
@@ -22,31 +23,39 @@ import Pusher from "pusher-js";
 
 window.Pusher = Pusher;
 
+/**************************** @LARAVEL_ECHO ****************************/
+
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     key: import.meta.env.VITE_PUSHER_APP_KEY,
+//     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER ?? "mt1",
+//     wsHost: import.meta.env.VITE_PUSHER_HOST,
+//     wsPort: import.meta.env.VITE_PUSHER_PORT,
+//     wssPort: import.meta.env.VITE_PUSHER_PORT,
+//     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
+//     enabledTransports: ['ws', 'wss'],
+// });
+
+/**************************** @WebSocket ****************************/
 window.Echo = new Echo({
     broadcaster: "pusher",
-    key: import.meta.env.VITE_PUSHER_APP_KEY,
-    cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER ?? "mt1",
-    wsHost: import.meta.env.VITE_PUSHER_HOST
-        ? import.meta.env.VITE_PUSHER_HOST
-        : `ws-${import.meta.env.VITE_PUSHER_APP_CLUSTER}.pusher.com`,
-    wsPort: import.meta.env.VITE_PUSHER_PORT ?? 80,
-    wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
-    forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? "https") === "https",
-    enabledTransports: ["ws", "wss"],
+    key: "MyWebSocketsKey",
+    wsHost: window.location.hostname,
+    wsPort: 6001,
+    forceTLS: false,
+    disableStats: true,
+    cluster: "mt1",
 });
 
-/****************************  @PUBLIC_CHANNEL  ****************************/
+/**************************** @PUBLIC_CHANNEL ****************************/
 
 window.Echo.channel(`new-user-channel`)
-    .listen(
-        ".new_user_register",
-        (data) => {
-            // data it's the data form constrctur in event NewUserRegisteredEvent $user + $message
-            console.log(data['message']);
-            $(".notificationsIcon").load(" .notificationsIcon > *");
-            $("#notificationsModal").load(" #notificationsModal > *");
-        }
-    );
+    .listen(".new_user_register", (data) => {
+        // data it's the data form constrctur in event NewUserRegisteredEvent $user + $message
+        console.log(data);
+        $(".notificationsIcon").load(" .notificationsIcon > *");
+        $("#notificationsModal").load(" #notificationsModal > *");
+    });
 
 // this if we have another event in the same channel
 // .listen("NewUserRegisteredEvent", (data) => {
@@ -54,50 +63,35 @@ window.Echo.channel(`new-user-channel`)
 
 /****************************  @PRIVATE_CHANNEL ****************************/
 
-// window.Echo.private(`new-user-channel`).listen(
-//     "NewUserRegisteredEvent",
-//     (data) => {
+// window.Echo.private(`new-user-channel`)
+
+//     .listen("NewUserRegisteredEvent", (data) => {
 //         console.log(data);
 //         $(".notificationsIcon").load(" .notificationsIcon > *");
 //         $("#notificationsModal").load(" #notificationsModal > *");
-//     }
-// );
+//     });
 
 /****************************  @PRESENCE_CHANNEL ****************************/
 
-window.Echo.join(`admin_room_channel`)
-    .here((users) => {
-        console.log('here :');
-        console.log(users);
-        $.each(users, function (index, user) {
-            $(".onlineAdmins").append($("<li>").text(user.name));
-        });
-    })
+// window.Echo.join(`admin_room_channel`)
 
-    .joining((user) => {
-        console.log('here :');
-        console.log(user.name);
-        $(".onlineAdmins").append($("<li>").text(user.name));
-    })
+//     .here((users) => {
+//         $.each(users, function (index, user) {
+//             console.log("here: " + user.name);
+//             $(".onlineAdmins").append($("<li>").text(user.name));
+//         });
+//     })
 
-    .leaving((user) => {
-        console.log('leaving :');
-        console.log(user.name);
-        $(".onlineAdmins li:contains('" + user.name + "')").remove();
-    })
+//     .joining((user) => {
+//         console.log("here: " + user.name);
+//         $(".onlineAdmins").append($("<li>").text(user.name));
+//     })
 
-    .error((error) => {
-        console.log("error :");
-        console.error(error);
-    });
+//     .leaving((user) => {
+//         console.log("leaving: " + user.name);
+//         $(".onlineAdmins li:contains('" + user.name + "')").remove();
+//     })
 
-/**************************** @WebSocket ****************************/
-// window.Echo = new Echo({
-//     broadcaster: "pusher",
-//     key: "WebSocketKEY",
-//     wsHost: window.location.hostname,
-//     wsPort: 6001,
-//     forceTLS: false,
-//     disableStats: true,
-//     cluster: "mt1",
-// });
+//     .error((error) => {
+//         console.error("error: " + error);
+//     });

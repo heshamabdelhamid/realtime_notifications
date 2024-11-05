@@ -16,7 +16,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     // This trait for broadcast model
-    use BroadcastsEvents;
+    // use BroadcastsEvents;
 
     /**
      * The attributes that are mass assignable.
@@ -97,40 +97,40 @@ class User extends Authenticatable
      *
      * @return array<int, \Illuminate\Broadcasting\Channel|\Illuminate\Database\Eloquent\Model>
      */
-    public function broadcastOn(string $event): array
-    {
-        return [
-            new Channel('user_braodcast')
-        ];
-    }
+    // public function broadcastOn(string $event): array
+    // {
+    //     return [
+    //         new Channel('user_braodcast')
+    //     ];
+    // }
 
 
     /**
      * The model event's broadcast name.
      */
 
-    public function broadcastAs(string $event): string|null
-    {
-        return match ($event) {
-            'created'  => 'created',
-            'updated'  => 'updated',
-            'deleted'  => 'deleted',
-            'trashed'  => 'trashed',
-            'restored' => 'restored',
-            default => null,
-        };
-    }
+    // public function broadcastAs(string $event): string|null
+    // {
+    //     return match ($event) {
+    //         'created'  => 'created',
+    //         'updated'  => 'updated',
+    //         'deleted'  => 'deleted',
+    //         'trashed'  => 'trashed',
+    //         'restored' => 'restored',
+    //         default => null,
+    //     };
+    // }
 
     /**
      * Get the data to broadcast for the model.
      *
      * @return array<string, mixed>
      */
-    public function broadcastWith(string $event): array
-    {
-        return match ($event) {
-            'created' => ['name' => $this->name],
-            default => ['user' => $this],
-        };
-    }
+    // public function broadcastWith(string $event): array
+    // {
+    //     return match ($event) {
+    //         'created' => ['name' => $this->name],
+    //         default => ['user' => $this],
+    //     };
+    // }
 }

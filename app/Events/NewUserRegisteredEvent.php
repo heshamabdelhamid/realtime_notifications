@@ -34,7 +34,8 @@ class NewUserRegisteredEvent implements ShouldBroadcast
     {
         return [
             new Channel('new-user-channel'), // public channel
-            new PresenceChannel('admin_room_channel'), //presence channel
+
+            // new PresenceChannel('admin_room_channel'), //presence channel
             // new PrivateChannel('channel-name'), //private channel
         ];
     }
@@ -55,5 +56,4 @@ class NewUserRegisteredEvent implements ShouldBroadcast
     // {
     //     return $this->user->id == 1;
     // }
-
 }

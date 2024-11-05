@@ -58,7 +58,7 @@ class RegisteredUserController extends Controller
         Broadcast(new NewUserRegisteredEvent($user));
 
         //Model broadcast
-        $user->broadcastChannel();
+        // $user->broadcastChannel();
 
         Auth::login($user);
 
