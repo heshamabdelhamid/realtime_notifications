@@ -1,18 +1,9 @@
-## Starter project for realtime course on Udemy
-
-<img src="https://img-b.udemycdn.com/course/750x422/5669532_824d.jpg"> 
-
-**Created By :** Mahmoud Anwar
-**Email :** Engsahaly@gmail.com
-
-This is the main readme file for this starter project to use as initial starting point fro realtime course on Udemy
-
 ## Installation
 
 To get started, clone this repository.
 
 ```
-git clone https://github.com/engsahaly/starter_project_for_realtime.git
+git clone https://github.com/heshamabdelhamid/realtime_notifications.git
 ```
 
 Next, copy your `.env.example` file as `.env` and configure your Database connection.
